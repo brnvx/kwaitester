@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kwai Multi Pixel Event Activator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff2c53;
+            --secondary: #6a11cb;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --border-radius: 10px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2575fc 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+        }
+        
+        .tab.active {
+            background: white;
+            color: var(--primary);
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            color: var(--dark);
+        }
+        
+        .pixel-management {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .pixel-management {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #e01a4a;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .event-btn {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .event-btn:hover {
+            background: #e9ecef;
+            transform: translateY(-3px);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .event-btn i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .event-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .event-btn.active i {
+            color: white;
+        }
+        
+        .pixel-list {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .pixel-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .pixel-item:last-child {
+            border-bottom: none;
+        }
+        
+        .pixel-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #bd2130;
+        }
+        
+        .result-container {
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+        
+        .result-container h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+        
+        #result {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        
+        .history-container {
+            margin-top: 30px;
+        }
+        
+        .history-item {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .history-event {
+            color: var(--primary);
+        }
+        
+        .history-time {
+            color: var(--gray);
+            font-size: 14px;
+        }
+        
+        .history-details {
+            font-size: 14px;
+            color: var(--dark);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+            font-size: 14px;
+            width: 100%;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            background: white;
+            box-shadow: var(--box-shadow);
+            transform: translateX(100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        
+        .notification i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        
+        .notification.success {
+            border-left: 4px solid var(--success);
+        }
+        
+        .notification.error {
+            border-left: 4px solid var(--danger);
+        }
+        
+        .notification.warning {
+            border-left: 4px solid var(--warning);
+        }
+        
+        .select-all-events {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        @media (max-width: 768px) {
+            .event-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            header h1 {
+                font-size: 24px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            .select-all-events {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <h1>Kwai Multi Pixel Event Activator</h1>
+            <p>Activate various Kwai Ads events with multiple pixel IDs simultaneously</p>
+            
+            <div class="tabs">
+                <div class="tab active" data-tab="events">Events</div>
+                <div class="tab" data-tab="pixels">Pixel Management</div>
+                <div class="tab" data-tab="history">History</div>
+            </div>
+        </header>
+        
+        <div class="content">
+            <!-- Events Tab -->
+            <div class="tab-content active" id="events-tab">
+                <div class="pixel-management">
+                    <div class="form-group">
+                        <label for="pixel-selector">Select Pixel ID</label>
+                        <select id="pixel-selector" class="form-control">
+                            <option value="">-- Select Pixel --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="custom-pixel">Or Enter Pixel ID Manually</label>
+                        <input type="text" id="custom-pixel" class="form-control" placeholder="Enter Pixel ID">
+                    </div>
+                </div>
+                
+                <div class="select-all-events">
+                    <button id="select-all-btn" class="btn btn-warning">
+                        <i class="fas fa-check-square"></i> Select All Events
+                    </button>
+                </div>
+                
+                <h2 class="section-title">Select Event Type</h2>
+                <div class="event-grid" id="event-grid">
+                    <div class="event-btn" data-event="ViewContent">
+                        <i class="fas fa-eye"></i>
+                        <span>View Content</span>
+                    </div>
+                    <div class="event-btn" data-event="AddToCart">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>Add to Cart</span>
+                    </div>
+                    <div class="event-btn" data-event="AddToWishlist">
+                        <i class="fas fa-heart"></i>
+                        <span>Add to Wishlist</span>
+                    </div>
+                    <div class="event-btn" data-event="InitiateCheckout">
+                        <i class="fas fa-cash-register"></i>
+                        <span>Initiate Checkout</span>
+                    </div>
+                    <div class="event-btn" data-event="PlaceOrder">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span>Place Order</span>
+                    </div>
+                    <div class="event-btn" data-event="CompletePayment">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Complete Payment</span>
+                    </div>
+                    <div class="event-btn" data-event="Contact">
+                        <i class="fas fa-phone"></i>
+                        <span>Contact</span>
+                    </div>
+                    <div class="event-btn" data-event="Download">
+                        <i class="fas fa-download"></i>
+                        <span>Download</span>
+                    </div>
+                    <div class="event-btn" data-event="SubmitForm">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Submit Form</span>
+                    </div>
+                    <div class="event-btn" data-event="Register">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Register</span>
+                    </div>
+                    <div class="event-btn" data-event="ApplyNow">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Apply Now</span>
+                    </div>
+                    <div class="event-btn" data-event="BookNow">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Book Now</span>
+                    </div>
+                    <div class="event-btn" data-event="RequestQuote">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Request Quote</span>
+                    </div>
+                    <div class="event-btn" data-event="购物">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>购物 (Purchase)</span>
+                    </div>
+                    <div class="event-btn" data-event="注册">
+                        <i class="fas fa-user-check"></i>
+                        <span>注册 (Sign Up)</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="value-input">Transaction Value</label>
+                    <input type="number" id="value-input" class="form-control" placeholder="Enter transaction value" value="100000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="currency-input">Currency</label>
+                    <select id="currency-input" class="form-control">
+                        <option value="IDR">IDR - Indonesian Rupiah</option>
+                        <option value="USD">USD - US Dollar</option>
+                        <option value="EUR">EUR - Euro</option>
+                        <option value="CNY">CNY - Chinese Yuan</option>
+                    </select>
+                </div>
+                
+                <button id="activate-btn" class="btn btn-primary btn-block">
+                    <i class="fas fa-play-circle"></i> Activate Selected Events
+                </button>
+                
+                <button id="activate-all-events-btn" class="btn btn-success btn-block" style="margin-top: 10px;">
+                    <i class="fas fa-bolt"></i> Activate All Events Simultaneously
+                </button>
+                
+                <div class="result-container" id="result-container">
+                    <h3>Event Activation Results</h3>
+                    <div id="result"></div>
+                </div>
+            </div>
+            
+            <!-- Pixel Management Tab -->
+            <div class="tab-content" id="pixels-tab">
+                <h2 class="section-title">Manage Pixel IDs</h2>
+                
+                <div class="form-group">
+                    <label for="new-pixel">Add New Pixel ID</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="new-pixel" class="form-control" placeholder="Enter Pixel ID">
+                        <button id="add-pixel-btn" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Add
+                        </button>
+                    </div>
+                </div>
+                
+                <h3 class="section-title">Saved Pixel List</h3>
+                <div class="pixel-list" id="pixel-list">
+                    <p id="no-pixels">No pixels added yet</p>
+                </div>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <button id="activate-all-pixels-btn" class="btn btn-primary btn-block">
+                        <i class="fas fa-bolt"></i> Activate All Pixels Simultaneously
+                    </button>
+                </div>
+            </div>
+            
+            <!-- History Tab -->
+            <div class="tab-content" id="history-tab">
+                <h2 class="section-title">Event Activation History</h2>
+                
+                <div class="history-container" id="history-container">
+                    <p id="no-history">No activation history yet</p>
+                </div>
+                
+                <div class="form-group" style="margin-top: 20px;">
+                    <button id="clear-history-btn" class="btn btn-danger btn-block">
+                        <i class="fas fa-trash"></i> Clear All History
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Kwai Multi Pixel Event Activator &copy; 2023 | For testing purposes only</p>
+        <p>Based on example from <a href="https://brnvx.github.io/beiyong/" target="_blank">brnvx.github.io/beiyong/</a></p>
+    </footer>
+
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text">Operation completed successfully</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const eventButtons = document.querySelectorAll('.event-btn');
+            const eventGrid = document.getElementById('event-grid');
+            const activateBtn = document.getElementById('activate-btn');
+            const activateAllEventsBtn = document.getElementById('activate-all-events-btn');
+            const resultContainer = document.getElementById('result-container');
+            const resultElement = document.getElementById('result');
+            const pixelSelector = document.getElementById('pixel-selector');
+            const customPixelInput = document.getElementById('custom-pixel');
+            const valueInput = document.getElementById('value-input');
+            const currencyInput = document.getElementById('currency-input');
+            const newPixelInput = document.getElementById('new-pixel');
+            const addPixelBtn = document.getElementById('add-pixel-btn');
+            const pixelList = document.getElementById('pixel-list');
+            const noPixels = document.getElementById('no-pixels');
+            const activateAllPixelsBtn = document.getElementById('activate-all-pixels-btn');
+            const historyContainer = document.getElementById('history-container');
+            const noHistory = document.getElementById('no-history');
+            const clearHistoryBtn = document.getElementById('clear-history-btn');
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            const selectAllBtn = document.getElementById('select-all-btn');
+            
+            // State
+            let selectedEvents = [];
+            let pixels = JSON.parse(localStorage.getItem('kwai_pixels')) || [];
+            let history = JSON.parse(localStorage.getItem('kwai_history')) || [];
+            let allEventsSelected = false;
+            
+            // Initialize
+            updatePixelSelector();
+            updatePixelList();
+            updateHistory();
+            
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Event button selection
+            eventButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    const eventType = this.getAttribute('data-event');
+                    
+                    if (this.classList.contains('active')) {
+                        selectedEvents.push(eventType);
+                    } else {
+                        selectedEvents = selectedEvents.filter(e => e !== eventType);
+                    }
+                    
+                    updateSelectAllButton();
+                });
+            });
+            
+            // Select all events
+            selectAllBtn.addEventListener('click', function() {
+                allEventsSelected = !allEventsSelected;
+                
+                if (allEventsSelected) {
+                    // Select all events
+                    eventButtons.forEach(btn => {
+                        btn.classList.add('active');
+                        const eventType = btn.getAttribute('data-event');
+                        if (!selectedEvents.includes(eventType)) {
+                            selectedEvents.push(eventType);
+                        }
+                    });
+                    selectAllBtn.innerHTML = '<i class="fas fa-times-circle"></i> Deselect All Events';
+                    selectAllBtn.classList.add('btn-danger');
+                    selectAllBtn.classList.remove('btn-warning');
+                } else {
+                    // Deselect all events
+                    eventButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    selectedEvents = [];
+                    selectAllBtn.innerHTML = '<i class="fas fa-check-square"></i> Select All Events';
+                    selectAllBtn.classList.remove('btn-danger');
+                    selectAllBtn.classList.add('btn-warning');
+                }
+            });
+            
+            // Add new pixel
+            addPixelBtn.addEventListener('click', function() {
+                const newPixel = newPixelInput.value.trim();
+                if (newPixel) {
+                    if (!pixels.includes(newPixel)) {
+                        pixels.push(newPixel);
+                        localStorage.setItem('kwai_pixels', JSON.stringify(pixels));
+                        updatePixelSelector();
+                        updatePixelList();
+                        newPixelInput.value = '';
+                        showNotification('Pixel added successfully', 'success');
+                    } else {
+                        showNotification('Pixel already exists in the list', 'error');
+                    }
+                }
+            });
+            
+            // Activate selected events
+            activateBtn.addEventListener('click', function() {
+                if (selectedEvents.length === 0) {
+                    showNotification('Please select at least one event type!', 'error');
+                    return;
+                }
+                
+                let pixelId = customPixelInput.value.trim();
+                if (!pixelId) {
+                    pixelId = pixelSelector.value;
+                }
+                
+                if (!pixelId) {
+                    showNotification('Please select or enter a Pixel ID!', 'error');
+                    return;
+                }
+                
+                const value = valueInput.value ? parseInt(valueInput.value) : 0;
+                const currency = currencyInput.value;
+                
+                // Simulate sending events to Kwai
+                const eventsData = selectedEvents.map(event => {
+                    const eventData = {
+                        event: event,
+                        pixel_id: pixelId,
+                        timestamp: new Date().toISOString(),
+                        event_id: generateEventId(),
+                        user_agent: navigator.userAgent,
+                        language: navigator.language,
+                        referrer: document.referrer || 'direct',
+                        value: value,
+                        currency: currency
+                    };
+                    
+                    // Add some mock data based on event type
+                    addEventSpecificData(eventData, event);
+                    return eventData;
+                });
+                
+                // Display result
+                resultElement.textContent = JSON.stringify(eventsData, null, 2);
+                resultContainer.style.display = 'block';
+                
+                // Add to history
+                eventsData.forEach(eventData => {
+                    history.unshift({
+                        ...eventData,
+                        displayTime: new Date().toLocaleString('en-US')
+                    });
+                });
+                
+                // Keep only last 50 history items
+                if (history.length > 50) {
+                    history = history.slice(0, 50);
+                }
+                
+                localStorage.setItem('kwai_history', JSON.stringify(history));
+                updateHistory();
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                // In a real implementation, you would send this data to Kwai's API
+                console.log('Kwai Events Activated:', eventsData);
+                
+                showNotification(`${selectedEvents.length} events activated successfully`, 'success');
+            });
+            
+            // Activate all events simultaneously
+            activateAllEventsBtn.addEventListener('click', function() {
+                let pixelId = customPixelInput.value.trim();
+                if (!pixelId) {
+                    pixelId = pixelSelector.value;
+                }
+                
+                if (!pixelId) {
+                    showNotification('Please select or enter a Pixel ID!', 'error');
+                    return;
+                }
+                
+                const value = valueInput.value ? parseInt(valueInput.value) : 0;
+                const currency = currencyInput.value;
+                
+                // Get all available events
+                const allEvents = Array.from(eventButtons).map(btn => btn.getAttribute('data-event'));
+                
+                // Simulate sending all events to Kwai
+                const eventsData = allEvents.map(event => {
+                    const eventData = {
+                        event: event,
+                        pixel_id: pixelId,
+                        timestamp: new Date().toISOString(),
+                        event_id: generateEventId(),
+                        user_agent: navigator.userAgent,
+                        language: navigator.language,
+                        referrer: document.referrer || 'direct',
+                        value: value,
+                        currency: currency
+                    };
+                    
+                    // Add some mock data based on event type
+                    addEventSpecificData(eventData, event);
+                    return eventData;
+                });
+                
+                // Display result
+                resultElement.textContent = JSON.stringify(eventsData, null, 2);
+                resultContainer.style.display = 'block';
+                
+                // Add to history
+                eventsData.forEach(eventData => {
+                    history.unshift({
+                        ...eventData,
+                        displayTime: new Date().toLocaleString('en-US')
+                    });
+                });
+                
+                // Keep only last 50 history items
+                if (history.length > 50) {
+                    history = history.slice(0, 50);
+                }
+                
+                localStorage.setItem('kwai_history', JSON.stringify(history));
+                updateHistory();
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                // In a real implementation, you would send this data to Kwai's API
+                console.log('All Kwai Events Activated:', eventsData);
+                
+                showNotification(`All ${allEvents.length} events activated successfully`, 'success');
+            });
+            
+            // Activate all pixels
+            activateAllPixelsBtn.addEventListener('click', function() {
+                if (selectedEvents.length === 0) {
+                    showNotification('Please select at least one event type!', 'error');
+                    return;
+                }
+                
+                if (pixels.length === 0) {
+                    showNotification('No pixels registered!', 'error');
+                    return;
+                }
+                
+                const value = valueInput.value ? parseInt(valueInput.value) : 0;
+                const currency = currencyInput.value;
+                
+                const results = [];
+                
+                pixels.forEach(pixelId => {
+                    selectedEvents.forEach(event => {
+                        const eventData = {
+                            event: event,
+                            pixel_id: pixelId,
+                            timestamp: new Date().toISOString(),
+                            event_id: generateEventId(),
+                            user_agent: navigator.userAgent,
+                            language: navigator.language,
+                            referrer: document.referrer || 'direct',
+                            value: value,
+                            currency: currency
+                        };
+                        
+                        addEventSpecificData(eventData, event);
+                        results.push(eventData);
+                        
+                        // Add to history
+                        history.unshift({
+                            ...eventData,
+                            displayTime: new Date().toLocaleString('en-US')
+                        });
+                    });
+                });
+                
+                // Keep only last 50 history items
+                if (history.length > 50) {
+                    history = history.slice(0, 50);
+                }
+                
+                localStorage.setItem('kwai_history', JSON.stringify(history));
+                updateHistory();
+                
+                // Display result
+                resultElement.textContent = JSON.stringify(results, null, 2);
+                resultContainer.style.display = 'block';
+                
+                // Scroll to result
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+                
+                console.log('Kwai Events Activated for all pixels:', results);
+                showNotification(`${selectedEvents.length} events activated for ${pixels.length} pixels`, 'success');
+            });
+            
+            // Clear history
+            clearHistoryBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete all history?')) {
+                    history = [];
+                    localStorage.setItem('kwai_history', JSON.stringify(history));
+                    updateHistory();
+                    showNotification('History cleared successfully', 'success');
+                }
+            });
+            
+            // Helper functions
+            function updatePixelSelector() {
+                pixelSelector.innerHTML = '<option value="">-- Select Pixel --</option>';
+                pixels.forEach(pixel => {
+                    const option = document.createElement('option');
+                    option.value = pixel;
+                    option.textContent = pixel;
+                    pixelSelector.appendChild(option);
+                });
+            }
+            
+            function updatePixelList() {
+                if (pixels.length === 0) {
+                    noPixels.style.display = 'block';
+                    pixelList.innerHTML = '';
+                    return;
+                }
+                
+                noPixels.style.display = 'none';
+                pixelList.innerHTML = '';
+                
+                pixels.forEach((pixel, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'pixel-item';
+                    item.innerHTML = `
+                        <span>${pixel}</span>
+                        <div class="pixel-actions">
+                            <button class="btn btn-danger btn-sm delete-pixel" data-index="${index}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    pixelList.appendChild(item);
+                });
+                
+                // Add event listeners to delete buttons
+                document.querySelectorAll('.delete-pixel').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        pixels.splice(index, 1);
+                        localStorage.setItem('kwai_pixels', JSON.stringify(pixels));
+                        updatePixelSelector();
+                        updatePixelList();
+                        showNotification('Pixel deleted successfully', 'success');
+                    });
+                });
+            }
+            
+            function updateHistory() {
+                if (history.length === 0) {
+                    noHistory.style.display = 'block';
+                    historyContainer.innerHTML = '';
+                    return;
+                }
+                
+                noHistory.style.display = 'none';
+                historyContainer.innerHTML = '';
+                
+                history.forEach((item, index) => {
+                    if (index >= 20) return; // Only show last 20 items
+                    
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.innerHTML = `
+                        <div class="history-header">
+                            <span class="history-event">${item.event}</span>
+                            <span class="history-time">${item.displayTime}</span>
+                        </div>
+                        <div class="history-details">
+                            Pixel: ${item.pixel_id} | Value: ${item.value} ${item.currency}
+                        </div>
+                    `;
+                    historyContainer.appendChild(historyItem);
+                });
+            }
+            
+            function updateSelectAllButton() {
+                if (selectedEvents.length === eventButtons.length) {
+                    selectAllBtn.innerHTML = '<i class="fas fa-times-circle"></i> Deselect All Events';
+                    selectAllBtn.classList.add('btn-danger');
+                    selectAllBtn.classList.remove('btn-warning');
+                    allEventsSelected = true;
+                } else {
+                    selectAllBtn.innerHTML = '<i class="fas fa-check-square"></i> Select All Events';
+                    selectAllBtn.classList.remove('btn-danger');
+                    selectAllBtn.classList.add('btn-warning');
+                    allEventsSelected = false;
+                }
+            }
+            
+            function generateEventId() {
+                return 'EVT' + Date.now() + Math.floor(Math.random() * 1000);
+            }
+            
+            function addEventSpecificData(eventData, eventType) {
+                switch(eventType) {
+                    case 'ViewContent':
+                        eventData.content_type = 'product';
+                        eventData.content_ids = ['PROD123', 'PROD456'];
+                        break;
+                    case 'AddToCart':
+                        eventData.content_ids = ['PROD123'];
+                        eventData.quantity = 2;
+                        break;
+                    case 'CompletePayment':
+                        eventData.content_ids = ['PROD123', 'PROD789'];
+                        eventData.transaction_id = 'TXN' + Date.now();
+                        break;
+                    case 'Register':
+                        eventData.registration_method = 'email';
+                        break;
+                    case '购物': // Purchase
+                        eventData.content_ids = ['PROD123', 'PROD456', 'PROD789'];
+                        eventData.transaction_id = 'TXN' + Date.now();
+                        eventData.quantity = 3;
+                        break;
+                    case '注册': // Sign Up
+                        eventData.registration_method = 'email';
+                        eventData.signup_method = 'website';
+                        break;
+                }
+            }
+            
+            function showNotification(message, type) {
+                notification.className = `notification ${type}`;
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                // Update icon based on type
+                const icon = notification.querySelector('i');
+                icon.className = type === 'success' ? 
+                    'fas fa-check-circle' : 
+                    (type === 'warning' ? 'fas fa-exclamation-triangle' : 'fas fa-exclamation-circle');
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
